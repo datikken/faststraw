@@ -1,4 +1,5 @@
 from sqlalchemy import DateTime, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 from database.database import Base
 
 
@@ -9,7 +10,10 @@ class Podcast(Base):
   slug = Column(String, unique=True, index=True)
   title = Column(String)
   description = Column(String)
+
   buzzsprout_id = Column(Integer, ForeignKey('buzzsprout.id'))
+  buzzsprout = relationship('Buzzsprout', lazy='selectin')
+
   apple = Column(String)
   spotify = Column(String)
   google = Column(String)

@@ -13,6 +13,6 @@ def podcasts():
     return db.query(Podcast).all()
 
 
-@app.get("/buzzsprout/all")
+@app.get("/buzzsprout/list")
 def podcasts():
     return db.query(Buzzsprout).all()
