@@ -1,15 +1,18 @@
 from typing import Union
 from fastapi import FastAPI
-import database.database
+from database.models.buzzsprout import Buzzsprout
+from database.models.podcast import Podcast
+from database.database import db
+
 
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.get("/podcasts")
+def podcasts():
+    return db.query(Podcast).all()
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/buzzsprout/all")
+def podcasts():
+    return db.query(Buzzsprout).all()

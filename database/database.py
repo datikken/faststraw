@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
-# from sqlalchemy import text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 
 SQLALCHEMY_DATABASE_URL = "mysql://root:toor@127.0.0.1:3306/cointelegraph"
@@ -8,10 +9,9 @@ engine = create_engine(
     SQLALCHEMY_DATABASE_URL
 )
 
-connection = engine.connect()
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# with engine.connect() as connection:
-#     result = connection.execute(text("select * from podcasts"))
-#     for row in result:
-#         print(row)
-        
+Base = declarative_base()
+Base.metadata.create_all(bind=engine)
+
+db = SessionLocal()
